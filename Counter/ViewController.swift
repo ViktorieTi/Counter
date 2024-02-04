@@ -7,6 +7,18 @@
 
 import UIKit
 
+extension Date {
+    func localDate() -> Date {
+        let nowUTC = Date()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
+        guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else
+        {
+            return Date()
+        }
+        return localDate
+    }
+}
+
 class ViewController: UIViewController {
     @IBOutlet weak var counterLabel: UILabel!
   
@@ -19,7 +31,7 @@ class ViewController: UIViewController {
     
     var clickCounter: UInt = 0
     
-    var date = Date ()
+    var date = Date().localDate()
    
     @IBAction func clickOfCounterPlusButton(_ sender: Any) {
         clickCounter += 1
